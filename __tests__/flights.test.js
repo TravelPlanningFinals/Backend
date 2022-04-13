@@ -95,4 +95,16 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual(expected);
     expect(await Flight.getById(flight.id)).toEqual(expected);
   });
+
+  it('should be able to delete a flight', async () => {
+    const flight = await Flight.insert({
+      airline: 'Alaska',
+      departure: '11:30',
+      arrival: '4:00',
+      flightNumber: 'bd234',
+    });
+    const res = await request(app).delete(`/api/v1/flights/${flight.id}`);
+    expect(res.body).toEqual(flight);
+    expect(await Flight.getById(flight.id)).toBeNull();
+  });
 });
