@@ -3,6 +3,7 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS trips CASCADE;
 DROP TABLE IF EXISTS users_trips CASCADE;
+DROP TABLE IF EXISTS flights CASCADE;
 
 CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -23,6 +24,19 @@ CREATE TABLE users_trips (
     trips_id BIGINT REFERENCES trips(id)
 );
 
+CREATE TABLE flights (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    airline TEXT NOT NULL,
+    departure TEXT NOT NULL,
+    arrival TEXT NOT NULL,
+    flight_number TEXT
+);
+
+CREATE TABLE trips_flights (
+    trips_id BIGINT REFERENCES trips(id),
+    flights_id BIGINT REFERENCES flights(id)
+);
+
 INSERT INTO
 users (username, email, avatar)
 VALUES
@@ -34,3 +48,9 @@ INSERT INTO
 VALUES
 ('vegas', '4/29/2022', '5/12/2022'),
 ('italy', '6/19/2022', '7/20/2022');
+
+INSERT INTO
+flights (airline, departure, arrival, flight_number)
+VALUES
+('Alaska', '11:30', '4:00', 'bd234'),
+('Spririt', '5:30', '1:00', 'cb234');
