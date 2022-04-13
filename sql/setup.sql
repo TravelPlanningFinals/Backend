@@ -30,12 +30,8 @@ CREATE TABLE flights (
     airline TEXT NOT NULL,
     departure TEXT NOT NULL,
     arrival TEXT NOT NULL,
-    flight_number TEXT
-);
-
-CREATE TABLE trips_flights (
-    trips_id BIGINT REFERENCES trips(id),
-    flights_id BIGINT REFERENCES flights(id)
+    flight_number TEXT,
+    trips_id BIGINT REFERENCES trips(id)
 );
 
 INSERT INTO
@@ -51,7 +47,12 @@ VALUES
 ('italy', '6/19/2022', '7/20/2022');
 
 INSERT INTO
-flights (airline, departure, arrival, flight_number)
+flights (airline, departure, arrival, flight_number, trips_id)
 VALUES
-('Alaska', '11:30', '4:00', 'bd234'),
-('Spirit', '5:30', '1:00', 'cb234');
+('Alaska', '11:30', '4:00', 'bd234', 1),
+('Spirit', '5:30', '1:00', 'cb234', 2);
+
+INSERT INTO
+users_trips (users_id, trips_id)
+VALUES
+(1, 1);
