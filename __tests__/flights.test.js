@@ -70,4 +70,29 @@ describe('TravelBackend routes', () => {
     const res = await request(app).get(`/api/v1/flights/${flight.id}`);
     expect(res.body).toEqual(flight);
   });
+
+  it('should update a flight', async () => {
+    const flight = await Flight.insert({
+      airline: 'Alaska',
+      departure: '11:30',
+      arrival: '4:00',
+      flightNumber: 'bd234',
+    });
+    const res = await request(app).patch(`/api/v1/flights/${flight.id}`).send({
+      airline: 'Delta',
+      departure: '11:30',
+      arrival: '4:00',
+      flightNumber: 'ef234',
+    });
+
+    const expected = {
+      id: expect.any(String),
+      airline: 'Delta',
+      departure: '11:30',
+      arrival: '4:00',
+      flightNumber: 'ef234',
+    };
+    expect(res.body).toEqual(expected);
+    expect(await Flight.getById(flight.id)).toEqual(expected);
+  });
 });
