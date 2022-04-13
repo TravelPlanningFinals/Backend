@@ -15,8 +15,7 @@ CREATE TABLE trips (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     location TEXT NOT NULL,
     start_date DATE,
-    end_date DATE,
-    users BIGINT NOT NULL REFERENCES users(id)
+    end_date DATE
 );
 
 CREATE TABLE users_trips (
@@ -31,7 +30,7 @@ VALUES
 ('user.user2', 'user.test@test2.com', 'https://avatars.githubusercontent.com/u/68452618?v=4');
 
 INSERT INTO
- trips (location, start_date, end_date, users)
+ trips (location, start_date, end_date)
 VALUES
-('vegas', '4/29/2022', '5/12/2022', 1),
-('italy', '6/19/2022', '7/20/2022', 2);
+('vegas', '4/29/2022', '5/12/2022'),
+('italy', '6/19/2022', '7/20/2022');
