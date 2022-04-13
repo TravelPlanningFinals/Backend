@@ -41,4 +41,21 @@ describe('TravelBackend routes', () => {
     expect(res.status).toEqual(200);
     expect(res.body).toEqual([...flights]);
   });
+
+  it('allows an authenticated user to create a new flight', async () => {
+    const agent = request.agent(app);
+
+    let res = await agent.post('/api/v1/flights');
+    expect(res.status).toEqual(401);
+
+    await agent.get('/api/v1/github/login/callback?code=42').redirects(1);
+    const flight = {
+      airline: 'Alaska',
+      departure: '10:30',
+      arrival: '3:30',
+      flightNumber: 'aa234',
+    };
+    res = await agent.post('/api/v1/flights').send(flight);
+    expect(res.body).toEqual({ id: expect.any(String), ...flight });
+  });
 });
