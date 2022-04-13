@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS trips CASCADE;
 DROP TABLE IF EXISTS users_trips CASCADE;
 DROP TABLE IF EXISTS flights CASCADE;
+DROP TABLE IF EXISTS trips_flights CASCADE;
 
 CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -53,4 +54,4 @@ INSERT INTO
 flights (airline, departure, arrival, flight_number)
 VALUES
 ('Alaska', '11:30', '4:00', 'bd234'),
-('Spririt', '5:30', '1:00', 'cb234');
+('Spirit', '5:30', '1:00', 'cb234');
