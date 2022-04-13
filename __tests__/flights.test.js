@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const Flight = require('../lib/models/Flight');
 
 jest.mock('../lib/utils/github');
 
@@ -57,5 +58,16 @@ describe('TravelBackend routes', () => {
     };
     res = await agent.post('/api/v1/flights').send(flight);
     expect(res.body).toEqual({ id: expect.any(String), ...flight });
+  });
+
+  it('should be able to list a flight by id', async () => {
+    const flight = await Flight.insert({
+      airline: 'Alaska',
+      departure: '11:30',
+      arrival: '4:00',
+      flightNumber: 'bd234',
+    });
+    const res = await request(app).get(`/api/v1/flights/${flight.id}`);
+    expect(res.body).toEqual(flight);
   });
 });
