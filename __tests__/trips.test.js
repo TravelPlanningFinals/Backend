@@ -38,20 +38,4 @@ describe('TravelBackend routes', () => {
     expect(res.status).toEqual(200);
     expect(res.body).toEqual([...trips]);
   });
-
-  it('allows an authenticated user to create a new trip', async () => {
-    const agent = request.agent(app);
-
-    let res = await agent.post('/api/v1/trips');
-    expect(res.status).toEqual(401);
-
-    await agent.get('/api/v1/github/login/callback?code=42').redirects(1);
-    const trip = {
-      location: 'Spain',
-      startDate: '9/9/2022',
-      endDate: '9/21/2022',
-    };
-    res = await agent.post('/api/v1/trips').send(trip);
-    expect(res.body).toEqual({ id: expect.any(String), ...trip });
-  });
 });
