@@ -15,7 +15,7 @@ describe('TravelBackend routes', () => {
     pool.end();
   });
 
-  it('should be able to list all flights', async () => {
+  it.skip('should be able to list all flights', async () => {
     const flights = [
       {
         id: expect.any(String),
@@ -43,7 +43,7 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual([...flights]);
   });
 
-  it('allows an authenticated user to create a new flight', async () => {
+  it.skip('allows an authenticated user to create a new flight', async () => {
     const agent = request.agent(app);
 
     let res = await agent.post('/api/v1/flights');
