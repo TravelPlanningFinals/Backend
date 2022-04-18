@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS trips CASCADE;
 DROP TABLE IF EXISTS users_trips CASCADE;
 DROP TABLE IF EXISTS flights CASCADE;
 DROP TABLE IF EXISTS trips_flights CASCADE;
+DROP TABLE IF EXISTS lodging CASCADE;
 
 CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -32,6 +33,21 @@ CREATE TABLE flights (
     arrival TEXT NOT NULL,
     flight_number TEXT,
     trips_id BIGINT REFERENCES trips(id)
+);
+
+CREATE TABLE lodging (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name_of_place TEXT NOT NULL,
+    contact_info TEXT NOT NULL,
+    price_per_night BIGINT NOT NULL,
+    check_in TEXT NOT NULL,
+    check_out TEXT NOT NULL,
+    address_1 TEXT NOT NULL,
+    address_2 TEXT,
+    city TEXT NOT NULL,
+    state TEXT NOT NULL,
+    zip BIGINT NOT NULL,
+    trip_id BIGINT REFERENCES trips(id)
 );
 
 INSERT INTO
