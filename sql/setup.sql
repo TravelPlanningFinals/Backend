@@ -26,6 +26,7 @@ CREATE TABLE guests (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT,
+    phone_number TEXT NOT NULL,
     emergency_contact TEXT NOT NULL,
     trips_id BIGINT REFERENCES trips(id)
 );
@@ -79,7 +80,7 @@ VALUES
 ('Spirit', '5:30', '1:00', 'cb234', 2);
 
 INSERT INTO
-guests (name, email, emergency_contact, trips_id)
+guests (name, email, phone_number, emergency_contact, trips_id)
 VALUES
-('chad', 'chadsemail@chad.com', '713-555-5555', 1),
-('tyler', 'tyler@email.com', '555-555-5555', 2);
+('chad', 'chadsemail@chad.com', '111-111-1111', '713-555-5555', 1),
+('tyler', 'tyler@email.com', '222-222-2222', '555-555-5555', 2);
