@@ -2,7 +2,6 @@
 -- The SQL in this file will be executed when you run `npm run setup-db`
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS trips CASCADE;
-DROP TABLE IF EXISTS guests_trips CASCADE;
 DROP TABLE IF EXISTS flights CASCADE;
 DROP TABLE IF EXISTS trips_flights CASCADE;
 DROP TABLE IF EXISTS lodging CASCADE;
@@ -15,13 +14,6 @@ CREATE TABLE users (
     avatar TEXT
 );
 
-CREATE TABLE guests (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT,
-    emergency_contact TEXT NOT NULL
-);
-
 CREATE TABLE trips (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     location TEXT NOT NULL,
@@ -30,10 +22,18 @@ CREATE TABLE trips (
     users_id BIGINT REFERENCES users(id)
 );
 
-CREATE TABLE guests_trips (
-    guests_id BIGINT REFERENCES guests(id),
+CREATE TABLE guests (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT,
+    emergency_contact TEXT NOT NULL,
     trips_id BIGINT REFERENCES trips(id)
 );
+
+-- CREATE TABLE guests_trips (
+--     guests_id BIGINT REFERENCES guests(id),
+--     trips_id BIGINT REFERENCES trips(id)
+-- );
 
 CREATE TABLE flights (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -79,12 +79,7 @@ VALUES
 ('Spirit', '5:30', '1:00', 'cb234', 2);
 
 INSERT INTO
-guests (name, email, emergency_contact)
-VALUES('chad', 'chadsemail@chad.com', '713-555-5555');
-
-INSERT INTO
-guests_trips (guests_id, trips_id)
+guests (name, email, emergency_contact, trips_id)
 VALUES
-(1, 1);
-
--- delete
+('chad', 'chadsemail@chad.com', '713-555-5555', 1),
+('tyler', 'tyler@email.com', '555-555-5555', 2);
