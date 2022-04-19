@@ -33,8 +33,7 @@ describe('Lodging routes', () => {
     expect(res.body).toEqual({ id: expect.any(String), ...hotel });
   });
 
-  it.skip('should list a hotel by ID', async () => {
-
+  it('should list a hotel by ID', async () => {
     const lodging = await Lodging.insert({
       id: expect.any(String),
       nameOfPlace: 'Test Hotel',
@@ -52,8 +51,7 @@ describe('Lodging routes', () => {
     expect(res.body).toEqual(lodging);
   });
 
-  it.skip('Should be able to update hotel information', async () => {
-
+  it('Should be able to update hotel information', async () => {
     const lodging = await Lodging.insert({
       nameOfPlace: 'Test Hotel',
       contactInfo: 'Test Info',

@@ -3,7 +3,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS trips CASCADE;
 DROP TABLE IF EXISTS flights CASCADE;
-DROP TABLE IF EXISTS trips_flights CASCADE;
 DROP TABLE IF EXISTS lodging CASCADE;
 DROP TABLE IF EXISTS guests CASCADE;
 
@@ -38,10 +37,6 @@ CREATE TABLE guests (
     trips_id BIGINT REFERENCES trips(id)
 );
 
--- CREATE TABLE guests_trips (
---     guests_id BIGINT REFERENCES guests(id),
---     trips_id BIGINT REFERENCES trips(id)
--- );
 
 CREATE TABLE flights (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
