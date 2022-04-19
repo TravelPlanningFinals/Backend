@@ -2,10 +2,11 @@
 -- The SQL in this file will be executed when you run `npm run setup-db`
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS trips CASCADE;
-DROP TABLE IF EXISTS users_trips CASCADE;
+DROP TABLE IF EXISTS guests_trips CASCADE;
 DROP TABLE IF EXISTS flights CASCADE;
 DROP TABLE IF EXISTS trips_flights CASCADE;
 DROP TABLE IF EXISTS lodging CASCADE;
+DROP TABLE IF EXISTS guests CASCADE;
 
 CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -14,15 +15,23 @@ CREATE TABLE users (
     avatar TEXT
 );
 
+CREATE TABLE guests (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT,
+    emergency_contact TEXT NOT NULL
+);
+
 CREATE TABLE trips (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     location TEXT NOT NULL,
     start_date DATE,
-    end_date DATE
+    end_date DATE,
+    users_id BIGINT REFERENCES users(id)
 );
 
-CREATE TABLE users_trips (
-    users_id BIGINT REFERENCES users(id),
+CREATE TABLE guests_trips (
+    guests_id BIGINT REFERENCES guests(id),
     trips_id BIGINT REFERENCES trips(id)
 );
 
@@ -47,7 +56,8 @@ CREATE TABLE lodging (
     city TEXT NOT NULL,
     state TEXT NOT NULL,
     zip BIGINT NOT NULL,
-    trip_id BIGINT REFERENCES trips(id)
+    trips_id BIGINT REFERENCES trips(id)
+
 );
 
 INSERT INTO
@@ -57,10 +67,10 @@ VALUES
 ('user.user2', 'user.test@test2.com', 'https://avatars.githubusercontent.com/u/68452618?v=4');
 
 INSERT INTO
- trips (location, start_date, end_date)
+ trips (location, start_date, end_date, users_id)
 VALUES
-('vegas', '4/29/2022', '5/12/2022'),
-('italy', '6/19/2022', '7/20/2022');
+('vegas', '4/29/2022', '5/12/2022', 1),
+('italy', '6/19/2022', '7/20/2022', 2);
 
 INSERT INTO
 flights (airline, departure, arrival, flight_number, trips_id)
@@ -69,6 +79,12 @@ VALUES
 ('Spirit', '5:30', '1:00', 'cb234', 2);
 
 INSERT INTO
-users_trips (users_id, trips_id)
+guests (name, email, emergency_contact)
+VALUES('chad', 'chadsemail@chad.com', '713-555-5555');
+
+INSERT INTO
+guests_trips (guests_id, trips_id)
 VALUES
 (1, 1);
+
+-- delete

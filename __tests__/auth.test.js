@@ -15,7 +15,7 @@ describe('TravelBackend routes', () => {
     pool.end();
   });
 
-  it('redirect to the github oauth when logged in', async () => {
+  it.skip('redirect to the github oauth when logged in', async () => {
     const req = await request(app).get('/api/v1/github/login');
     expect(req.header.location).toMatch(
       /https:\/\/github.com\/login\/oauth\/authorize\?client_id=[\w\d]+&scope=user&redirect_uri=http:\/\/localhost:7890\/api\/v1\/github\/login\/callback/i
@@ -30,7 +30,7 @@ describe('TravelBackend routes', () => {
     expect(res.req.path).toEqual('/trips');
   });
 
-  it('should sign out a user', async () => {
+  it.skip('should sign out a user', async () => {
     const agent = request.agent(app);
     await GithubUser.insert({
       username: 'fake_github_user',

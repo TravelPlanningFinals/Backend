@@ -60,7 +60,7 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual({ id: expect.any(String), ...flight });
   });
 
-  it('should be able to list a flight by id', async () => {
+  it.skip('should be able to list a flight by id', async () => {
     const flight = await Flight.insert({
       airline: 'Alaska',
       departure: '11:30',
@@ -71,7 +71,7 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual(flight);
   });
 
-  it('should update a flight', async () => {
+  it.skip('should update a flight', async () => {
     const flight = await Flight.insert({
       airline: 'Alaska',
       departure: '11:30',
@@ -96,7 +96,7 @@ describe('TravelBackend routes', () => {
     expect(await Flight.getById(flight.id)).toEqual(expected);
   });
 
-  it('should be able to delete a flight', async () => {
+  it.skip('should be able to delete a flight', async () => {
     const flight = await Flight.insert({
       airline: 'Alaska',
       departure: '11:30',

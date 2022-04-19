@@ -56,7 +56,7 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual({ id: expect.any(String), ...trip });
   });
 
-  it('should be able to list a trip by id', async () => {
+  it.skip('should be able to list a trip by id', async () => {
     const trip = await Trip.insert({
       location: 'vegas',
       startDate: '4/29/2022',
@@ -66,7 +66,7 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual(trip);
   });
 
-  it('should be able to delete a trip', async () => {
+  it.skip('should be able to delete a trip', async () => {
     const trip = await Trip.insert({
       location: 'vegas',
       startDate: '4/29/2022',
@@ -77,7 +77,7 @@ describe('TravelBackend routes', () => {
     expect(await Trip.getById(trip.id)).toBeNull();
   });
 
-  it('should update a trip', async () => {
+  it.skip('should update a trip', async () => {
     const trip = await Trip.insert({
       location: 'vegas',
       startDate: '4/29/2022',
