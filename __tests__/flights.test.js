@@ -15,7 +15,7 @@ describe('TravelBackend routes', () => {
     pool.end();
   });
 
-  it.skip('should be able to list all flights', async () => {
+  it('should be able to list all flights', async () => {
     const flights = [
       {
         id: expect.any(String),
@@ -23,6 +23,7 @@ describe('TravelBackend routes', () => {
         departure: '11:30',
         arrival: '4:00',
         flightNumber: 'bd234',
+        tripsId: expect.any(String),
       },
       {
         id: expect.any(String),
@@ -30,6 +31,7 @@ describe('TravelBackend routes', () => {
         departure: '5:30',
         arrival: '1:00',
         flightNumber: 'cb234',
+        tripsId: expect.any(String),
       },
     ];
 

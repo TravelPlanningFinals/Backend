@@ -27,7 +27,7 @@ describe('TravelBackend routes', () => {
       .agent(app)
       .get('/api/v1/github/login/callback?code=42')
       .redirects(1);
-    expect(res.req.path).toEqual('/trips');
+    expect(res.req.path).toEqual('/api/v1/trips');
   });
 
   it('should sign out a user', async () => {
