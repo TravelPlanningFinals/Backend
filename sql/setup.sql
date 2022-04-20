@@ -13,13 +13,6 @@ CREATE TABLE users (
     avatar TEXT
 );
 
-CREATE TABLE guests (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT,
-    emergency_contact TEXT NOT NULL
-);
-
 CREATE TABLE trips (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     location TEXT NOT NULL,
