@@ -15,7 +15,7 @@ describe('TravelBackend routes', () => {
     pool.end();
   });
 
-  it.skip('should be able to list all flights', async () => {
+  it('should be able to list all flights', async () => {
     const flights = [
       {
         id: expect.any(String),
@@ -23,6 +23,7 @@ describe('TravelBackend routes', () => {
         departure: '11:30',
         arrival: '4:00',
         flightNumber: 'bd234',
+        tripsId: expect.any(String),
       },
       {
         id: expect.any(String),
@@ -30,6 +31,7 @@ describe('TravelBackend routes', () => {
         departure: '5:30',
         arrival: '1:00',
         flightNumber: 'cb234',
+        tripsId: expect.any(String),
       },
     ];
 
@@ -43,7 +45,7 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual([...flights]);
   });
 
-  it.skip('allows an authenticated user to create a new flight', async () => {
+  it('allows an authenticated user to create a new flight', async () => {
     const agent = request.agent(app);
 
     let res = await agent.post('/api/v1/flights');
@@ -55,34 +57,39 @@ describe('TravelBackend routes', () => {
       departure: '10:30',
       arrival: '3:30',
       flightNumber: 'aa234',
+      tripsId: '1',
     };
     res = await agent.post('/api/v1/flights').send(flight);
     expect(res.body).toEqual({ id: expect.any(String), ...flight });
   });
 
-  it.skip('should be able to list a flight by id', async () => {
-    const flight = await Flight.insert({
+  it('should be able to list a flight by id', async () => {
+    const flight = {
+      id: '1',
       airline: 'Alaska',
       departure: '11:30',
       arrival: '4:00',
       flightNumber: 'bd234',
-    });
+      tripsId: '1',
+    };
     const res = await request(app).get(`/api/v1/flights/${flight.id}`);
-    expect(res.body).toEqual(flight);
+    expect(res.body).toEqual({ id: 1, ...flight });
   });
 
-  it.skip('should update a flight', async () => {
+  it('should update a flight', async () => {
     const flight = await Flight.insert({
       airline: 'Alaska',
       departure: '11:30',
       arrival: '4:00',
       flightNumber: 'bd234',
+      tripsId: '1',
     });
     const res = await request(app).patch(`/api/v1/flights/${flight.id}`).send({
       airline: 'Delta',
       departure: '11:30',
       arrival: '4:00',
       flightNumber: 'ef234',
+      tripsId: '1',
     });
 
     const expected = {
@@ -91,12 +98,13 @@ describe('TravelBackend routes', () => {
       departure: '11:30',
       arrival: '4:00',
       flightNumber: 'ef234',
+      tripsId: '1',
     };
     expect(res.body).toEqual(expected);
     expect(await Flight.getById(flight.id)).toEqual(expected);
   });
 
-  it.skip('should be able to delete a flight', async () => {
+  it('should be able to delete a flight', async () => {
     const flight = await Flight.insert({
       airline: 'Alaska',
       departure: '11:30',

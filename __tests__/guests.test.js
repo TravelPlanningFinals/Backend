@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const Guest = require('../lib/models/Guest');
 
 jest.mock('../lib/utils/github');
 
@@ -46,5 +47,45 @@ describe('TravelBackend routes', () => {
     res = await agent.get('/api/v1/guests');
     expect(res.status).toEqual(200);
     expect(res.body).toEqual([...guests]);
+  });
+
+  it.skip('should update a guest', async () => {
+    const guest = await Guest.insert({
+      name: 'chad',
+      email: 'chadsemail@chad.com',
+      phoneNumber: '111-111-1111',
+      emergencyContact: '713-555-5555',
+      tripsId: '1',
+    });
+    const res = await request(app).patch(`/api/v1/guests/${guest.id}`).send({
+      name: 'brett',
+      email: 'brettsemail@brett.com',
+      phoneNumber: '444-444-4444',
+      emergencyContact: '000-000-0000',
+      tripsId: '1',
+    });
+    const expected = {
+      id: expect.any(String),
+      name: 'brett',
+      email: 'brettsemail@brett.com',
+      phoneNumber: '444-444-4444',
+      emergencyContact: '000-000-0000',
+      tripsId: '1',
+    };
+    expect(res.body).toEqual(expected);
+    expect(await Guest.getById(guest.id)).toEqual(expected);
+  });
+
+  it.skip('should be able to delete a guest', async () => {
+    const guest = await Guest.insert({
+      name: 'brett',
+      email: 'brettsemail@brett.com',
+      phoneNumber: '444-444-4444',
+      emergencyContact: '000-000-0000',
+      tripsId: '1',
+    });
+    const res = await request(app).delete(`/api/v1/guests/${guest.id}`);
+    expect(res.body).toEqual(guest);
+    expect(await Guest.getById(guest.id)).toBeNull();
   });
 });
