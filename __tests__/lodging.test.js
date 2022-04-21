@@ -13,7 +13,7 @@ describe('Lodging routes', () => {
     pool.end();
   });
 
-  it.skip('should create a new lodging row', async () => {
+  it('should create a new lodging row', async () => {
     const agent = request.agent(app);
 
     const hotel = {
@@ -27,7 +27,7 @@ describe('Lodging routes', () => {
       address2: '',
       city: 'Test City',
       state: 'WA',
-      tripsId: expect.any(String),
+      tripsId: null,
       zip: '12345',
     };
     const res = await agent.post('/api/v1/lodging').send(hotel);
@@ -45,7 +45,9 @@ describe('Lodging routes', () => {
       address1: '123 Test Ave',
       address2: '',
       city: 'Test City',
+      // tripsId: expect.any(String),
       state: 'WA',
+
       zip: '12345',
     });
     const res = await request(app).get(`/api/v1/lodging/${lodging.id}`);
@@ -63,6 +65,7 @@ describe('Lodging routes', () => {
       address2: '',
       city: 'Test City',
       state: 'WA',
+      tripsId: null,
       zip: '12345',
     });
     const res = await request(app).patch(`/api/v1/lodging/${lodging.id}`).send({
@@ -80,6 +83,7 @@ describe('Lodging routes', () => {
       address2: '',
       city: 'Test City',
       state: 'WA',
+      tripsId: null,
       zip: '12345',
     };
     expect(res.body).toEqual(expected);
