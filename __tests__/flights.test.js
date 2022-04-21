@@ -73,7 +73,7 @@ describe('TravelBackend routes', () => {
       tripsId: '1',
     };
     const res = await request(app).get(`/api/v1/flights/${flight.id}`);
-    expect(res.body).toEqual({ id: 1, ...flight });
+    expect(res.body).toEqual({ id: expect.any(String), ...flight });
   });
 
   it('should update a flight', async () => {
