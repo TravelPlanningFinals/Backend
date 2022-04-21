@@ -27,6 +27,7 @@ describe('Lodging routes', () => {
       address2: '',
       city: 'Test City',
       state: 'WA',
+      tripsId: expect.any(String),
       zip: '12345',
     };
     const res = await agent.post('/api/v1/lodging').send(hotel);
