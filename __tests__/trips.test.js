@@ -14,7 +14,7 @@ describe('TravelBackend routes', () => {
   afterAll(() => {
     pool.end();
   });
-  it.skip('should be able to list all trips', async () => {
+  it('should be able to list all trips', async () => {
     const trips = [
       {
         id: expect.any(String),
@@ -40,7 +40,7 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual([...trips]);
   });
 
-  it.skip('allows an authenticated user to create a new trip', async () => {
+  it('allows an authenticated user to create a new trip', async () => {
     const agent = request.agent(app);
 
     let res = await agent.post('/api/v1/trips');
@@ -56,17 +56,22 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual({ id: expect.any(String), ...trip });
   });
 
-  it.skip('should be able to list a trip by id', async () => {
+  it('should be able to list a trip by id and its associated flights, guests, and lodging details', async () => {
     const trip = await Trip.insert({
       location: 'vegas',
       startDate: '4/29/2022',
       endDate: '5/12/2022',
     });
     const res = await request(app).get(`/api/v1/trips/${trip.id}`);
-    expect(res.body).toEqual(trip);
+    expect(res.body).toEqual({
+      ...trip,
+      flights: expect.any(Array),
+      guests: expect.any(Array),
+      lodging: expect.any(Array),
+    });
   });
 
-  it.skip('should be able to delete a trip', async () => {
+  it('should be able to delete a trip', async () => {
     const trip = await Trip.insert({
       location: 'vegas',
       startDate: '4/29/2022',
@@ -77,7 +82,7 @@ describe('TravelBackend routes', () => {
     expect(await Trip.getById(trip.id)).toBeNull();
   });
 
-  it.skip('should update a trip', async () => {
+  it('should update a trip', async () => {
     const trip = await Trip.insert({
       location: 'vegas',
       startDate: '4/29/2022',
