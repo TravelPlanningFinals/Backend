@@ -41,7 +41,7 @@ CREATE TABLE flights (
 );
 
 CREATE TABLE lodging (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    lodging_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name_of_place TEXT NOT NULL,
     contact_info TEXT NOT NULL,
     price_per_night BIGINT NOT NULL,
