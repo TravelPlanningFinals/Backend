@@ -45,7 +45,6 @@ describe('Lodging routes', () => {
       address1: '123 Test Ave',
       address2: '',
       city: 'Test City',
-      // tripsId: expect.any(String),
       state: 'WA',
 
       zip: '12345',

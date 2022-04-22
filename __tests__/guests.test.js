@@ -91,7 +91,7 @@ describe('TravelBackend routes', () => {
     expect(await Guest.getById(guest.id)).toEqual(expected);
   });
 
-  it.only('should be able to delete a guest', async () => {
+  it('should be able to delete a guest', async () => {
     const guest = await Guest.insert({
       name: 'brett',
       email: 'brettsemail@brett.com',

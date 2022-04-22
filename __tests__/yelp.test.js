@@ -11,7 +11,7 @@ describe('travelbackend routes', () => {
   afterAll(() => {
     pool.end();
   });
-  it.skip('should get resturants from yelp api', async () => {
+  it('should get resturants from yelp api', async () => {
     const expected = {
       businesses: [
         [Object],
