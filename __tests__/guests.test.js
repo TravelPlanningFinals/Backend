@@ -15,27 +15,42 @@ describe('TravelBackend routes', () => {
     pool.end();
   });
 
-  it.skip('should create a new guests row', async () => {
+  it('should create a new guests row', async () => {
     const agent = request.agent(app);
+    let res = await agent.post('/api/v1/guests');
+    expect(res.status).toEqual(401);
+    await agent.get('/api/v1/github/login/callback?code=42').redirects(1);
 
-    const guests = {
+    const guest = {
       id: expect.any(String),
       name: 'chad',
       email: 'chadsemail@chad.com',
-      emergency_contact: '713-555-5555',
+      phoneNumber: '111-111-1111',
+      emergencyContact: '713-555-5555',
+      tripsId: '1',
     };
 
-    const res = await (await agent.post('/api/v1/guests')).setEncoding(guests);
-    expect(res.body).toEqual({ id: expect.any(String), ...guests });
+    res = await agent.post('/api/v1/guests').send(guest);
+    expect(res.body).toEqual({ id: expect.any(String), ...guest });
   });
 
-  it.skip('should be able to list all guests', async () => {
+  it('should be able to list all guests', async () => {
     const guests = [
       {
         id: expect.any(String),
         name: 'chad',
         email: 'chadsemail@chad.com',
-        emergency_contact: '713-555-5555',
+        phoneNumber: '111-111-1111',
+        emergencyContact: '713-555-5555',
+        tripsId: '1',
+      },
+      {
+        id: expect.any(String),
+        name: 'tyler',
+        email: 'tyler@email.com',
+        phoneNumber: '222-222-2222',
+        emergencyContact: '555-555-5555',
+        tripsId: '2',
       },
     ];
 
@@ -49,7 +64,7 @@ describe('TravelBackend routes', () => {
     expect(res.body).toEqual([...guests]);
   });
 
-  it.skip('should update a guest', async () => {
+  it('should update a guest', async () => {
     const guest = await Guest.insert({
       name: 'chad',
       email: 'chadsemail@chad.com',
@@ -76,7 +91,7 @@ describe('TravelBackend routes', () => {
     expect(await Guest.getById(guest.id)).toEqual(expected);
   });
 
-  it.skip('should be able to delete a guest', async () => {
+  it.only('should be able to delete a guest', async () => {
     const guest = await Guest.insert({
       name: 'brett',
       email: 'brettsemail@brett.com',
