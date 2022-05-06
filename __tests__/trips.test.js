@@ -21,12 +21,14 @@ describe('TravelBackend routes', () => {
         location: 'vegas',
         startDate: '4/29/2022',
         endDate: '5/12/2022',
+        userId: '1',
       },
       {
         id: expect.any(String),
         location: 'italy',
         startDate: '6/19/2022',
         endDate: '7/20/2022',
+        userId: '2',
       },
     ];
 
@@ -51,6 +53,7 @@ describe('TravelBackend routes', () => {
       location: 'Spain',
       startDate: '9/9/2022',
       endDate: '9/21/2022',
+      userId: '3',
     };
     res = await agent.post('/api/v1/trips').send(trip);
     expect(res.body).toEqual({ id: expect.any(String), ...trip });
@@ -92,6 +95,7 @@ describe('TravelBackend routes', () => {
       location: 'Bali',
       startDate: '7/29/2022',
       endDate: '8/12/2022',
+      userId: null,
     });
 
     const expected = {
@@ -99,6 +103,7 @@ describe('TravelBackend routes', () => {
       location: 'Bali',
       startDate: '7/29/2022',
       endDate: '8/12/2022',
+      userId: null,
     };
     expect(res.body).toEqual(expected);
     expect(await Trip.getById(trip.id)).toEqual(expected);
